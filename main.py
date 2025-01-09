@@ -39,7 +39,7 @@ async def start(message):
 
 @dp.message_handler(text="Информация о боте")
 async def info(message):
-    await message.answer("Я могу перевести текст по фото.")
+    await message.answer("Я могу перевести текст по фото с разных языков. Английский, немецкий и испанский.")
 
 
 @dp.message_handler(text="Перевести")
@@ -69,10 +69,10 @@ async def download_photo(message: types.Message):
 @dp.message_handler(state=Photo.photo, content_types=types.ContentType.PHOTO)
 async def trans_bot(message: types.Message, state: FSMContext):
     file_path = await download_photo(message)
-    await message.reply("Ожидайте, идет перевод текста с данного фото.")
+    await message.reply("Ожидайте, идет обработка фото.")
     result = render.readtext(file_path)
     extract_text = ' '.join([i[1] for i in result])
-    await message.reply(f'Ожидайте, идет перевод текста с фото: \n {extract_text}')
+    await message.reply(f'Текст на фото: \n {extract_text}')
     translated_text = translator.translate(extract_text, dest='ru').text
     await message.reply(f'Переведенный текст: \n {translated_text}')
     os.remove(file_path)
