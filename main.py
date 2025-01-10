@@ -29,7 +29,8 @@ translator = Translator()
 
 
 class Photo(StatesGroup):
-    photo = State()
+    photo_bot = State()
+    photo_giga = State()
 
 
 @dp.message_handler(commands="start")
@@ -50,7 +51,7 @@ async def translate_menu(message):
 @dp.callback_query_handler(text="trans_bot")
 async def trans_bot(call):
     await call.message.answer("Сфотографируйте то что нужно перевести")
-    await Photo.photo.set()
+    await Photo.photo_bot.set()
 
 
 async def download_photo(message: types.Message):
@@ -66,7 +67,7 @@ async def download_photo(message: types.Message):
         print(f"Ошибка при загрузке изображения: {e}")
         return None
 
-@dp.message_handler(state=Photo.photo, content_types=types.ContentType.PHOTO)
+@dp.message_handler(state=Photo.photo_bot, content_types=types.ContentType.PHOTO)
 async def trans_bot(message: types.Message, state: FSMContext):
     file_path = await download_photo(message)
     await message.reply("Ожидайте, идет обработка фото.")
@@ -88,10 +89,10 @@ token = auth.get_token()
 @dp.callback_query_handler(text="trans_giga")
 async def trans_giga(call):
     await call.message.answer("Сфотографируйте то что нужно перевести")
-    await Photo.photo.set()
+    await Photo.photo_giga.set()
 
 
-@dp.message_handler(state=Photo.photo, content_types=types.ContentType.PHOTO)
+@dp.message_handler(state=Photo.photo_giga, content_types=types.ContentType.PHOTO)
 async def trans_giga(message: types.Message, state: FSMContext):
     file_path = await download_photo(message)
     await message.reply("Ожидайте, отправляем фото на сервер.")
@@ -99,12 +100,16 @@ async def trans_giga(message: types.Message, state: FSMContext):
         image_data = image_file.read()
     photo_id = uploader.download_giga(token, 'Пример текста', image_data)
     extracted_text = extractor.extracting(token, photo_id)
-    await message.reply(f"Текст на картинке:\n{extracted_text}")
+    await message.reply(f"Переведенный текст т фото:\n{extracted_text}")
     os.remove(file_path)
     await state.finish()
 
 
-@dp.message_handler(state=Photo.photo, content_types=[types.ContentType.TEXT, types.ContentType.STICKER])
+@dp.message_handler(state=Photo.photo_bot, content_types=[types.ContentType.TEXT, types.ContentType.STICKER])
+async def handle_text(message: types.Message, state: FSMContext):
+    await message.reply("Пожалуйста, отправьте фото для перевода.")
+
+@dp.message_handler(state=Photo.photo_giga, content_types=[types.ContentType.TEXT, types.ContentType.STICKER])
 async def handle_text(message: types.Message, state: FSMContext):
     await message.reply("Пожалуйста, отправьте фото для перевода.")
 
