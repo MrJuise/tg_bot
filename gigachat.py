@@ -7,7 +7,7 @@ urllib3.disable_warnings()
 
 class Auth():
     def __init__(self):
-        self.Auth = 'OTM3MjEzOGQtZjIxYi00MDVlLWE2ZDEtODU2OTcyYzU4MzA2OjIyNDNmYzdkLTgyMGQtNDc2Zi1iMDMzLWIxYTE1N2Y3MzA4OA=='
+        self.Auth = 'xxx'
         self.payload = {'scope': 'GIGACHAT_API_PERS'}
         UUID = str(uuid.uuid4())
         self.url = 'https://ngw.devices.sberbank.ru:9443/api/v2/oauth'
@@ -31,7 +31,7 @@ class Upload_to_giga():
     def download_giga(self, auth_token, content, image_data):
         file = {'file': ('filename.jpg', image_data, 'image/jpeg')}
         payload = {
-            'model': 'GigaChat',
+            'model': 'GigaChat-Pro',
             'message': [
                 {
                     'role': 'user',
