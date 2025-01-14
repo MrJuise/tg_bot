@@ -24,6 +24,7 @@ class Auth():
         # giga_token = json_response['access_token']
         return json_response['access_token']
 
+
 class Upload_to_giga():
     def __init__(self):
         self.url = 'https://gigachat-preview.devices.sberbank.ru/api/v1/files'
@@ -51,6 +52,7 @@ class Upload_to_giga():
         json_response = response.json()
         return json_response['id']
 
+
 class Extract():
     def __init__(self):
         self.url = 'https://gigachat.devices.sberbank.ru/api/v1/chat/completions'
@@ -74,7 +76,6 @@ class Extract():
 
         response = requests.post(self.url, headers=headers, json=payload, verify=False)
         json_response = response.json()
-
 
         try:
             extracted_text = json_response['choices'][0]['message']['content']
