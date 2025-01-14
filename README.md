@@ -36,7 +36,7 @@
 ### Метод
 
 - `translate_bot(message: types.Message, state: FSMContext)`: Загружает изображение, извлекает текст с помощью EasyOCR и переводит извлеченный текст с помощью GoogleTras.
-- 
+
 ## Классы
 
 ### Auth
