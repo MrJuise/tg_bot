@@ -30,7 +30,7 @@
 - ├── `gigachat.py`      # Модуль для работы с GigaChat API
 - ├── `handlers.py`      # Модуль с хендлерами
 - ├── `keyboard.py`      # Модуль с клавиатурами
-- └── `requirements.tx`t # Список зависимостей
+- └── `requirements.txt` # Список зависимостей
 
 ### Метод
 
