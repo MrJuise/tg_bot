@@ -26,17 +26,16 @@
 
 ## Структура проекта
 
-.
-├── main.py # Основной файл бота
-├── gigachat.py # Модуль для работы с GigaChat API
-├── handlers.py # Модуль с хендлерами
-├── keyboard.py # Модуль с клавиатурами
-└── requirements.txt # Список зависимостей
+- ├── main.py          # Основной файл бота
+- ├── gigachat.py      # Модуль для работы с GigaChat API
+- ├── handlers.py      # Модуль с хендлерами
+- ├── keyboard.py      # Модуль с клавиатурами
+- └── requirements.txt # Список зависимостей
 
 ### Метод
 
 - `translate_bot(message: types.Message, state: FSMContext)`: Загружает изображение, извлекает текст с помощью EasyOCR и переводит извлеченный текст с помощью GoogleTras.
-- 
+
 ## Классы
 
 ### Auth
